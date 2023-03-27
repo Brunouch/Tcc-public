@@ -2,16 +2,16 @@
 
 namespace App\Policies;
 
+use App\Facades\UserPermission;
 use App\Models\Cliente;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-use App\Facades\UserPermission;
 
 class ClientePolicy
 {
     use HandlesAuthorization;
 
-    
+   
     public function viewAny(User $user)
     {
         return UserPermission::isAuthorized('clientes.index');
@@ -23,19 +23,22 @@ class ClientePolicy
         return UserPermission::isAuthorized('clientes.show');
     }
 
-    
+   
     public function create(User $user)
     {
+
         return UserPermission::isAuthorized('clientes.create');
+
+
     }
 
- 
+    
     public function update(User $user, Cliente $cliente)
     {
         return UserPermission::isAuthorized('clientes.edit');
     }
 
-    
+   
     public function delete(User $user, Cliente $cliente)
     {
         return UserPermission::isAuthorized('clientes.destroy');

@@ -53,8 +53,8 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
-        Auth::login($user);
         UserPermission::loadPermissions(Auth::user()->role_id);
+        Auth::login($user);
 
         return redirect()->route('login');
     }

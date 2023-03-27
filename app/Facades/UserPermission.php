@@ -3,6 +3,7 @@
 namespace App\Facades;
 
 use App\Models\Permission;
+use Illuminate\Support\Facades\Auth;
 
 class UserPermission
 {
@@ -10,14 +11,14 @@ class UserPermission
     public static function loadPermissions($user_type)
     {   
         
-        $sess = array();
-        $perm = Permission::with(['resource'])->where('role_id', $user_type)->get();
+    
+        $sess = Array();
+        $perm = Permission::with('resource')->where('role_id', Auth::user()->role_id)->get();
 
         foreach ($perm as $item) {
 
             $sess[$item->resource->nome] = (bool) $item->permissao;
         }
-
 
         session(['user_permissions' => $sess]);
 
@@ -25,9 +26,7 @@ class UserPermission
 
     public static function isAuthorized($rule)
     {
-
         $permissions = session('user_permissions');
-
         return $permissions[$rule];
     }
 

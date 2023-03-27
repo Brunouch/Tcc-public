@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+
 class PermissionSeeder extends Seeder
 {
     /**
@@ -14,6 +15,7 @@ class PermissionSeeder extends Seeder
     public function run()
     {
         for ($i = 1; $i <= 2; $i++) {
+
             for ($j = 1; $j <= 25; $j++) {
 
                 DB::table('permissions')->insert([

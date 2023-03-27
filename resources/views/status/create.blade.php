@@ -50,7 +50,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control @if($errors->has('glasgow')) is-invalid @endif" name="glasgow" placeholder="glasgow" value="{{old('glasgow')}}" />
+                        <input type="number" class="form-control @if($errors->has('glasgow')) is-invalid @endif" name="glasgow" placeholder="glasgow" value="{{old('glasgow')}}" />
                         <label for="glasgow">Glasgow</label>
                         @if($errors->has('glasgow'))
                         <div class='invalid-feedback'>
@@ -61,7 +61,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control @if($errors->has('rass')) is-invalid @endif" name="rass" placeholder="rass" value="{{old('rass')}}" />
+                        <input type="number" class="form-control @if($errors->has('rass')) is-invalid @endif" name="rass" placeholder="rass" value="{{old('rass')}}" />
                         <label for="rass">Rass</label>
                         @if($errors->has('rass'))
                         <div class='invalid-feedback'>
@@ -85,7 +85,7 @@
                 </div>            
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control @if($errors->has('fc')) is-invalid @endif" name="fc"  placeholder="fc" value="{{old('fc')}}" />
+                        <input type="number" class="form-control @if($errors->has('fc')) is-invalid @endif" name="fc"  placeholder="fc" value="{{old('fc')}}" />
                         <label for="fc">Fc</label>
                         @if($errors->has('fc'))
                         <div class='invalid-feedback'>
@@ -98,7 +98,7 @@
             <div class="row">
                 <div class="col">
                     <div class="form-floating mb-3">
-                        <input type=number class="form-control @if($errors->has('dva')) is-invalid @endif" name="dva" placeholder="dva" value="{{old('dva')}}" />
+                        <input type=text class="form-control @if($errors->has('dva')) is-invalid @endif" name="dva" placeholder="dva" value="{{old('dva')}}" />
                         <label for="dva">DVA</label>
                         @if($errors->has('dva'))
                         <div class='invalid-feedback'>
@@ -109,7 +109,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="number" class="form-control @if($errors->has('spo2')) is-invalid @endif" name="spo2" placeholder="spo2" value="{{old('spo2')}}" />
+                        <input type="text" class="form-control @if($errors->has('spo2')) is-invalid @endif" name="spo2" placeholder="spo2" value="{{old('spo2')}}" />
                         <label for="spo2">spO2</label>
                         @if($errors->has('spo2'))
                         <div class='invalid-feedback'>

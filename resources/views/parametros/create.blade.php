@@ -24,18 +24,9 @@
           </div>
      </div>
      <div class="row">
-          <div class="col-md-6">
-               <div class="form-floating mb-3">
-                    <input type="datetime-local" class="form-control @if($errors->has('dataHora')) is-invalid @endif" name="dataHora" placeholder="dataHora" value="{{old('dataHora')}}" />
-                    <label for="nome">Data Hora</label>
-                    @if($errors->has('dataHora'))
-                    <div class='invalid-feedback'>
-                         {{ $errors->first('dataHora') }}
-                    </div>
-                    @endif
-               </div>
-          </div>     
-          <div class="col-md-6">
+ 
+          <div class="row">   
+          <div class="col-md-12">
                <div class="form-floating mb-3">
                     <input type="number" class="form-control @if($errors->has('volReal')) is-invalid @endif" name="volReal" placeholder="volReal" value="{{old('volReal')}}" />
                     <label for="volReal">vol Real</label>

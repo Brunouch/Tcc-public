@@ -24,4 +24,9 @@ class StatusClinico extends Model
         return $this->hasMany('App\Models\HigieneParenquima');
     }
 
+    public function gasometria()
+    {
+        return $this->hasMany('App\Models\Gasometria');
+    }
+
 }

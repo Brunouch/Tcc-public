@@ -17,7 +17,7 @@ class CreateStatusClinicosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('cliente_id');
             $table->foreign('cliente_id')->references('id')->on('clientes');
-            $table->date('dataHora');
+            $table->datetime('dataHora');
             $table->string('sedacao');
             $table->string('glasgow');
             $table->string('rass');

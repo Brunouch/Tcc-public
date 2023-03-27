@@ -13,7 +13,7 @@ class VentiladorMecController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(VentiladorMec::class, 'vent');
+        //$this->authorizeResource(VentiladorMec::class, 'vent');
     }
 
     public function index()
@@ -28,13 +28,14 @@ class VentiladorMecController extends Controller
     {
 
         $rules = [
-            'paciente_id' => 'required',
+            'cliente_id' => 'required',
             'modo' => 'required',
             'ciclagem' => 'required',
             'fio2' => 'required',
             'peep' => 'required',
+            'fr_vm' => 'required',
             'ie' => 'required',
-            'viaArea' => 'required',
+            'viaAerea' => 'required',
 
         ];
         $msgs = [
@@ -55,7 +56,7 @@ class VentiladorMecController extends Controller
 
     public function store(Request $request)
     {
-         // self::validation($request);
+         self::validation($request);
 
          $paciente = Cliente::find($request->cliente_id);
 
@@ -101,7 +102,7 @@ class VentiladorMecController extends Controller
         $clientes = Cliente::all();
 
         if (isset($ventiladorMec )) {
-            return view('vents.edit', compact(['ventiladorMec','$cliente']));
+            return view('vents.edit', compact(['ventiladorMec','clientes']));
         }
 
         return "<h1>Ventliador Mecânico não Encontrado!</h1>";
@@ -110,10 +111,12 @@ class VentiladorMecController extends Controller
    
     public function update(Request $request, VentiladorMec $vent)
     {   
+        self::validation($request);
+
         $paciente = Cliente::find($request->cliente_id);
 
         if (isset($vent)) {
-            $vent->paciente()->associate($paciente);
+            $vent->cliente()->associate($paciente);
             $vent->modo = $request->modo;
             $vent->ciclagem = $request->ciclagem;
             $vent->fio2 = $request->fio2;

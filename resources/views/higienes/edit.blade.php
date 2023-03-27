@@ -4,6 +4,7 @@
 
 <form action="{{ route('higienes.update', $higiene->id) }}" method="POST" id="formUpdate">
      @csrf
+     @method('PUT')
      <div class="row">
           <div class="col">
                <div class="input-group mb-3">
@@ -34,9 +35,7 @@
                     </div>
                     @endif
                </div>
-          </div>
-     </div>
-     
+          </div>   
           <div class="col-md-6">
                <div class="form-floating mb-3">
                     <input type="text" class="form-control @if($errors->has('producao')) is-invalid @endif" name="producao" placeholder="producao" value="{{$higiene->producao}}" />
@@ -61,7 +60,6 @@
                     @endif
                </div>
           </div>
-     </div>
           <div class="col-md-6">
                <div class="form-floating mb-3">
                     <input type="text" class="form-control @if($errors->has('quantidade')) is-invalid @endif" name="quantidade" placeholder="quantidade" value="{{$higiene->quantidade}}" />
@@ -75,7 +73,18 @@
           </div>
      </div>
      <div class="row">
-          <div class="col">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type=text class="form-control @if($errors->has('rolha')) is-invalid @endif" name="rolha" placeholder="Rolha" value="{{$higiene->rolha}}" />
+                        <label for="rolha">Rolha</label>
+                        @if($errors->has('rolha'))
+                        <div class='invalid-feedback'>
+                            {{ $errors->first('rolha') }}
+                        </div>
+                        @endif
+                    </div>
+                </div>
+          <div class="col-md-6">
                <div class="form-floating mb-3">
                     <input type=text class="form-control @if($errors->has('aspecto')) is-invalid @endif" name="aspecto" placeholder="aspecto" value="{{$higiene->aspecto}}" />
                     <label for="aspecto">Aspecto</label>

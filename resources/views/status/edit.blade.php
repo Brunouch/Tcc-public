@@ -2,14 +2,15 @@
 
 @section('conteudo')
 
-<form action="{{ route('status.update', $statusClinico->id) }}" method="POST" id="formUpdate">
+<form action="{{ route('status.update', $status->id) }}" method="POST" id="formUpdate">
     @csrf
+    @method('PUT')
     <div class="row">
                 <div class="col">
                     <div class="input-group mb-3">
                         <span class="input-group-text bg-dark text-white">Paciente</span>
                         <select name="cliente_id" class="form-select @if($errors->has('cliente_id')) is-invalid @endif">
-                            @foreach ($cliente as $item)
+                            @foreach ($clientes as $item)
                             <option value="{{$item->id}}" @if($item->id == old('cliente_id')) selected="true" @endif>
                                 {{ $item->nome }}
                             </option>
@@ -50,7 +51,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control @if($errors->has('glasgow')) is-invalid @endif" name="glasgow" placeholder="glasgow" value="{{$status->glasgow}}" />
+                        <input type="number" class="form-control @if($errors->has('glasgow')) is-invalid @endif" name="glasgow" placeholder="glasgow" value="{{$status->glasgow}}" />
                         <label for="glasgow">Glasgow</label>
                         @if($errors->has('glasgow'))
                         <div class='invalid-feedback'>
@@ -61,7 +62,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control @if($errors->has('rass')) is-invalid @endif" name="rass" placeholder="rass" value="{{$status->rass}}" />
+                        <input type="number" class="form-control @if($errors->has('rass')) is-invalid @endif" name="rass" placeholder="rass" value="{{$status->rass}}" />
                         <label for="rass">Rass</label>
                         @if($errors->has('rass'))
                         <div class='invalid-feedback'>
@@ -85,7 +86,20 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type=number class="form-control @if($errors->has('dva')) is-invalid @endif" name="dva" placeholder="dva" value="{{$status->dva}}" />
+                        <input type="number" class="form-control @if($errors->has('fc')) is-invalid @endif" name="fc"  placeholder="fc" value="{{$status->fc}}" />
+                        <label for="fc">Fc</label>
+                        @if($errors->has('fc'))
+                        <div class='invalid-feedback'>
+                            {{ $errors->first('fc') }}
+                        </div>
+                        @endif
+                    </div>
+                </div>
+                </div>
+                <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type=text class="form-control @if($errors->has('dva')) is-invalid @endif" name="dva" placeholder="dva" value="{{$status->dva}}" />
                         <label for="dva">DVA</label>
                         @if($errors->has('dva'))
                         <div class='invalid-feedback'>
@@ -93,10 +107,8 @@
                         </div>
                         @endif
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
+                </div>  
+                <div class="col-md-6">
                     <div class="form-floating mb-3">
                         <input type="text" class="form-control @if($errors->has('spo2')) is-invalid @endif" name="spo2" placeholder="spo2" value="{{$status->spo2}}" />
                         <label for="spo2">spO2</label>

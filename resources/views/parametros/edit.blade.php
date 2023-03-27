@@ -4,6 +4,7 @@
 
 <form action="{{ route('parametros.update', $parametrosAtingidos->id) }}" method="POST" id="formUpdate">
      @csrf
+     @method('PUT')
      <div class="row">
           <div class="col">
                <div class="input-group mb-3">
@@ -23,21 +24,10 @@
                </div>
           </div>
      </div>
-     <div class="row">
-          <div class="col-md-6">
+     <div class="row">    
+          <div class="col-md-12">
                <div class="form-floating mb-3">
-                    <input type="datetime-local" class="form-control @if($errors->has('dataHora')) is-invalid @endif" name="dataHora" placeholder="dataHora" value="{{$parametros->dataHora}}" />
-                    <label for="nome">Data Hora</label>
-                    @if($errors->has('dataHora'))
-                    <div class='invalid-feedback'>
-                         {{ $errors->first('dataHora') }}
-                    </div>
-                    @endif
-               </div>
-          </div>     
-          <div class="col-md-6">
-               <div class="form-floating mb-3">
-                    <input type="number" class="form-control @if($errors->has('volReal')) is-invalid @endif" name="volReal" placeholder="volReal" value="{{$parametros->volReal}}" />
+                    <input type="number" class="form-control @if($errors->has('volReal')) is-invalid @endif" name="volReal" placeholder="volReal" value="{{$parametrosAtingidos->volReal}}" />
                     <label for="volReal">vol Real</label>
                     @if($errors->has('volReal'))
                     <div class='invalid-feedback'>
@@ -50,7 +40,7 @@
      <div class="row">
           <div class="col-md-6">
                <div class="form-floating mb-3">
-                    <input type="text" class="form-control @if($errors->has('volMin')) is-invalid @endif" name="volMin" placeholder="volMin" value="{{$parametros->volMin}}" />
+                    <input type="text" class="form-control @if($errors->has('volMin')) is-invalid @endif" name="volMin" placeholder="volMin" value="{{$parametrosAtingidos->volMin}}" />
                     <label for="volMin">vol Min</label>
                     @if($errors->has('volMin'))
                     <div class='invalid-feedback'>
@@ -61,7 +51,7 @@
           </div>
           <div class="col-md-6">
                <div class="form-floating mb-3">
-                    <input type="number" class="form-control @if($errors->has('pPico')) is-invalid @endif" name="pPico" placeholder="pPico" value="{{$parametros->pPico}}" />
+                    <input type="number" class="form-control @if($errors->has('pPico')) is-invalid @endif" name="pPico" placeholder="pPico" value="{{$parametrosAtingidos->pPico}}" />
                     <label for="pPico">pPico</label>
                     @if($errors->has('pPico'))
                     <div class='invalid-feedback'>
@@ -74,7 +64,7 @@
      <div class="row">
           <div class="col-md-6">
                <div class="form-floating mb-3">
-                    <input type="number" class="form-control @if($errors->has('pMedia')) is-invalid @endif" name="pMedia" placeholder="pMedia" value="{{$parametros->pMedia}}" />
+                    <input type="number" class="form-control @if($errors->has('pMedia')) is-invalid @endif" name="pMedia" placeholder="pMedia" value="{{$parametrosAtingidos->pMedia}}" />
                     <label for="pMedia">p Media</label>
                     @if($errors->has('pMedia'))
                     <div class='invalid-feedback'>
@@ -85,7 +75,7 @@
           </div>     
           <div class="col-md-6">
                <div class="form-floating mb-3">
-                    <input type=text class="form-control @if($errors->has('pPlato')) is-invalid @endif" name="pPlato" placeholder="pPlato" value="{{$parametros->pPlato}}" />
+                    <input type=text class="form-control @if($errors->has('pPlato')) is-invalid @endif" name="pPlato" placeholder="pPlato" value="{{$parametrosAtingidos->pPlato}}" />
                     <label for="pPlato">pPlato</label>
                     @if($errors->has('pPlato'))
                     <div class='invalid-feedback'>
@@ -98,7 +88,7 @@
      <div class="row">
           <div class="col-md-6">
                <div class="form-floating mb-3">
-                    <input type="text" class="form-control @if($errors->has('complacencia')) is-invalid @endif" name="complacencia" placeholder="complacencia" value="{{$parametros->complacencia}}" />
+                    <input type="text" class="form-control @if($errors->has('complacencia')) is-invalid @endif" name="complacencia" placeholder="complacencia" value="{{$parametrosAtingidos->complacencia}}" />
                     <label for="complacencia">Complacencia</label>
                     @if($errors->has('complacencia'))
                     <div class='invalid-feedback'>
@@ -109,7 +99,7 @@
           </div>    
           <div class="col-md-6">
                <div class="form-floating mb-3">
-                    <input type="text" class="form-control @if($errors->has('resistencia')) is-invalid @endif" name="resistencia" placeholder="resistencia" value="{{$parametros->resistencia}}" />
+                    <input type="text" class="form-control @if($errors->has('resistencia')) is-invalid @endif" name="resistencia" placeholder="resistencia" value="{{$parametrosAtingidos->resistencia}}" />
                     <label for="resistencia">Resistencia</label>
                     @if($errors->has('resistencia'))
                     <div class='invalid-feedback'>
@@ -122,7 +112,7 @@
      <div class="row">
           <div class="col">
                <div class="form-floating mb-3">
-                    <input type="text" class="form-control @if($errors->has('autoPeep')) is-invalid @endif" name="autoPeep" placeholder="autoPeep" value="{{$parametros->autoPeep}}" />
+                    <input type="text" class="form-control @if($errors->has('autoPeep')) is-invalid @endif" name="autoPeep" placeholder="autoPeep" value="{{$parametrosAtingidos->autoPeep}}" />
                     <label for="autoPeep">autoPeep</label>
                     @if($errors->has('autoPeep'))
                     <div class='invalid-feedback'>

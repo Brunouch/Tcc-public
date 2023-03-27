@@ -14,25 +14,30 @@ class ParametrosAtingidosController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(ParametrosAtingidos::class, 'parametros');
+        //$this->authorizeResource(ParametrosAtingidos::class, 'parametros');
     }
 
     public function index()
     {
         $parametrosAtingidos = ParametrosAtingidos::all();
 
-            return view('parametros.index', compact(['parametrosAtingidos']));
+        return view('parametros.index', compact(['parametrosAtingidos']));
     }
 
     public function validation(Request $request)
     {
 
         $rules = [
-            'ventilador_id' => 'required',
+            'vent_id' => 'required',
             'volReal' => 'required',
             'volMin' => 'required',
-
-
+            'pPico' => 'required',
+            'pMedia' => 'required',
+            'pPlato' => 'required',
+            'complacencia' => 'required',
+            'resistencia' => 'required',
+            'autoPeep' => 'required',
+            
         ];
         $msgs = [
             "required" => "O preenchimento do campo [:attribute] é obrigatório!",
@@ -53,7 +58,9 @@ class ParametrosAtingidosController extends Controller
 
 
     public function store(Request $request)
-    {
+    {   
+        self::validation($request);
+
         $ventiladorMec = VentiladorMec::find($request->vent_id);
 
         $obj = new ParametrosAtingidos();
@@ -77,12 +84,6 @@ class ParametrosAtingidosController extends Controller
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\ParametrosAtingidos  $parametrosAtingidos
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $parametrosAtingidos = ParametrosAtingidos::find($id);
@@ -97,23 +98,24 @@ class ParametrosAtingidosController extends Controller
     }
 
 
-    public function update(Request $request, ParametrosAtingidos $parametros)
-    {
+    public function update(Request $request,  $id)
+    {      
+        self::validation($request);
+
+        $parametros = ParametrosAtingidos::find($id);
         $vent = VentiladorMec::find($request->vent_id);
 
         if (isset($parametros)) {
-           
-            $vent = new VentiladorMec();
-            $vent->ventiladorMec()->associate($vent);
-            $vent->volReal = $request->volReal;
-            $vent->volMin = $request->volMin;
-            $vent->pPico = $request->pPico;
-            $vent->pMedia = $request->pMedia;
-            $vent->pPlato = $request->pPlato;
-            $vent->complacencia = $request->complacencia;
-            $vent->resistencia = $request->resistencia;
-            $vent->autoPeep = $request->autoPeep;
-            $vent->save();
+            $parametros->vent()->associate($vent);
+            $parametros->volReal = $request->volReal;
+            $parametros->volMin = $request->volMin;
+            $parametros->pPico = $request->pPico;
+            $parametros->pMedia = $request->pMedia;
+            $parametros->pPlato = $request->pPlato;
+            $parametros->complacencia = $request->complacencia;
+            $parametros->resistencia = $request->resistencia;
+            $parametros->autoPeep = $request->autoPeep;
+            $parametros->save();
 
 
             return redirect()->route('parametros.index');
@@ -123,10 +125,12 @@ class ParametrosAtingidosController extends Controller
     }
 
 
-    public function destroy(ParametrosAtingidos $parametros)
+    public function destroy($id)
     {
-        if (isset($parametros)) {
-            $parametros->delete();
+        $obj = ParametrosAtingidos::find($id);
+
+        if (isset($id)) {
+            $obj->delete();
             return redirect()->route('parametros.index');
         }
 

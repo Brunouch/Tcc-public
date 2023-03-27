@@ -14,7 +14,7 @@ class HigieneParenquimaController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(HigieneParenquima::class, 'higiene');
+        //$this->authorizeResource(HigieneParenquima::class, 'higiene');
     }
 
     public function index()
@@ -29,8 +29,12 @@ class HigieneParenquimaController extends Controller
 
         $rules = [
             'status_id' => 'required',
-            'tosse' => 'required'|'max:3'|'min:1'
-
+            'tosse' => 'required',
+            'producao' => 'required',
+            'eficacia' => 'required',
+            'quantidade' => 'required',
+            'aspecto' => 'required',
+            'rolha' => 'required',
         ];
         $msgs = [
             "required" => "O preenchimento do campo [:attribute] é obrigatório!",
@@ -48,7 +52,9 @@ class HigieneParenquimaController extends Controller
 
   
     public function store(Request $request)
-    {
+    {   
+        self::validation($request);
+        
         $status = StatusClinico::find($request->status_id);
 
         $obj = new HigieneParenquima();
@@ -86,7 +92,8 @@ class HigieneParenquimaController extends Controller
 
     
     public function update(Request $request, HigieneParenquima $higiene)
-    {
+    {   
+        self::validation($request);
         $status = StatusClinico::find($request->status_id);
 
         if (isset($higiene)) {

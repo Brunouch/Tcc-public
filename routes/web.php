@@ -24,6 +24,9 @@ Route::get('/dashboard', function () {
 Route::resource('/clientes', '\App\Http\Controllers\ClienteController')
     ->middleware(['auth']);
 
+Route::resource('/gasos', '\App\Http\Controllers\GasometriaController')
+    ->middleware(['auth']);
+
 Route::resource('/vents', '\App\Http\Controllers\VentiladorMecController')
     ->middleware(['auth']);
 
@@ -34,6 +37,9 @@ Route::resource('/parametros', '\App\Http\Controllers\ParametrosAtingidosControl
     ->middleware(['auth']);
 
 Route::resource('/higienes', '\App\Http\Controllers\HigieneParenquimaController')
+    ->middleware(['auth']);
+
+Route::resource('/padrao', '\App\Http\Controllers\VentPadraoController')
     ->middleware(['auth']);
 
 require __DIR__ . '/auth.php';

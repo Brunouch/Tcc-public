@@ -10,16 +10,12 @@ use App\Facades\UserPermission;
 
 class ClienteController extends Controller
 {
-
     public function __construct()
     {
-        $this->authorizeResource(Cliente::class, 'cliente');
+        //$this->authorizeResource(Cliente::class, 'cliente');
     }
-
     public function index()
     {
-        $this->authorize('viewAny',  Cliente::class);
-
         $clientes = Cliente::all();
 
         return view('clientes.index', compact(['clientes']));
@@ -32,10 +28,13 @@ class ClienteController extends Controller
             'nome' => 'required|max:100|min:10',
             'idade' => 'required',
             'sexo' => 'required',
-            'dataInter' => 'required',
+            'dataInternamento' => 'required',
+            'diagnosticoInt' => 'required',
             'diagnosticoClin' => 'required',
             'dataIOT' => 'required',
-            'dataInter' => 'required',
+            'altura' => 'required|min:1',
+            'pesoIdeal' => 'required|min:1',
+            'diasInter' => 'required|min:1',
 
         ];
         $msgs = [
@@ -49,7 +48,6 @@ class ClienteController extends Controller
 
     public function create()
     {
-        $this->authorize('create',  Cliente::class);
 
         return view('clientes.create');
     }
@@ -62,8 +60,7 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
-        $this->authorize('create',  Cliente::class);
-        // self::validation($request);
+         self::validation($request);
 
         $obj = new Cliente();
         $obj->nome = mb_strtoupper($request->nome, 'UTF-8');
@@ -87,7 +84,6 @@ class ClienteController extends Controller
 
     public function edit(Cliente $cliente)
     {
-        $this->authorize('update', $cliente);
 
         if (isset($cliente)) {
             return view('clientes.edit', compact('cliente'));
@@ -99,9 +95,8 @@ class ClienteController extends Controller
 
     public function update(Request $request, Cliente $cliente)
     {
-        //self::validation($request);
+        self::validation($request);
 
-        $this->authorize('update', $cliente);
 
         if (isset($cliente)) {
             $cliente->nome = mb_strtoupper($request->nome, 'UTF-8');
@@ -126,7 +121,6 @@ class ClienteController extends Controller
 
     public function destroy(Cliente $cliente)
     {
-        $this->authorize('delete', $cliente);
 
         if (isset($cliente)) {
             $cliente->delete();

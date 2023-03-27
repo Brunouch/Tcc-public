@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cliente;
-
 use App\Models\VentiladorMec;
 use App\Models\StatusClinico;
 use App\Http\Requests\StoreStatusClinicoRequest;
@@ -11,11 +10,12 @@ use App\Http\Requests\UpdateStatusClinicoRequest;
 use Illuminate\Http\Request;
 use App\Facades\UserPermission;
 
+
 class StatusClinicoController extends Controller
 {
     public function __construct()
     {
-        $this->authorizeResource(StatusClinico::class, 'status');
+    //    $this->authorizeResource(StatusClinico::class, 'status');
     }
 
     public function index()
@@ -29,7 +29,15 @@ class StatusClinicoController extends Controller
     {
 
         $rules = [
-            'paciente_id' => 'required',
+            'cliente_id' => 'required',
+            'dataHora' => 'required',
+            'sedacao' => 'required',
+            'glasgow' => 'required',
+            'rass' => 'required',
+            'pa' => 'required',
+            'fc' => 'required',
+            'dva' => 'required',
+            'spo2' => 'required',
 
         ];
         $msgs = [
@@ -40,21 +48,22 @@ class StatusClinicoController extends Controller
 
         $request->validate($rules, $msgs);
     }
+
     public function create()
     {
         $cliente = Cliente::all();
         return view('status.create', compact('cliente'));
     }
 
-
     public function store(Request $request)
-    {
+    {   
+        self::validation($request);
+
         $paciente = Cliente::find($request->cliente_id);
 
-
         $obj = new StatusClinico();
+        
         $obj->cliente()->associate($paciente);
-
         $obj->dataHora = $request->dataHora;
         $obj->sedacao = $request->sedacao;
         $obj->glasgow = $request->glasgow;
@@ -63,7 +72,6 @@ class StatusClinicoController extends Controller
         $obj->pa = $request->pa;
         $obj->dva = $request->dva;
         $obj->spo2 = $request->spo2;
-
         $obj->save();
 
         return redirect()->route('status.index');
@@ -76,11 +84,14 @@ class StatusClinicoController extends Controller
     }
 
 
-    public function edit(StatusClinico $status)
+    public function edit($id)
     {
         
+        $status = StatusClinico::find($id);
+        $clientes = Cliente::all();
+        
         if (isset($status)) {
-            return view('status.edit', compact('status'));
+            return view('status.edit', compact('status','clientes'));
         }
 
         return "<h1>Status Clinico não Encontrado!</h1>";
@@ -88,7 +99,9 @@ class StatusClinicoController extends Controller
 
 
     public function update(Request $request, StatusClinico $status)
-    {
+    {   
+        self::validation($request);
+
         $paciente = Cliente::find($request->cliente_id);
 
         if (isset($status)) {
@@ -114,7 +127,7 @@ class StatusClinicoController extends Controller
     public function destroy(StatusClinico $status)
     {
         if (isset($status)) {
-            $status->destroy($status);
+            $status->delete();
             return redirect()->route('status.index');
         }
 

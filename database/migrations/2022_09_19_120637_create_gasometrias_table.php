@@ -15,6 +15,15 @@ class CreateGasometriasTable extends Migration
     {
         Schema::create('gasometrias', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('parametros_id');
+            $table->foreign('parametros_id')->references('id')->on('parametros_atingidos');
+            $table->datetime('dataHoraGaso');
+            $table->float('ph');
+            $table->float('PaCO2');
+            $table->float('PaO2');
+            $table->float('BE');
+            $table->float('HCO3');
+            $table->string('SaO2');
             $table->timestamps();
         });
     }
